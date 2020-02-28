@@ -13,6 +13,9 @@
         <input type="text" autocomplete="off" autofocus />
         <div>You can use the property "<em>font: var(--icons);</em>" to use the icon font in you project.</div>
         <script type="text/javascript">
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js');
+            }
             const regex = /icon-([^:]+).+\n.*content: '([^']+)/gm;
             const input = document.querySelector('input');
             const script = document.querySelector('script');
