@@ -1,0 +1,11 @@
+{
+    "name": "icons",
+    "version": "1.0.0",
+    "description": "Font Awesome 4.7 mini using icon-* syntax.",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:acoquoin/icons.git"
+    },
+    "homepage": "https://github.com/acoquoin/icons",
+    "files": ["icons.woff2", "icons.css"]
+}
