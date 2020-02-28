@@ -1,0 +1,16 @@
+{
+    "name": "Icons",
+    "short_name": "Icons",
+    "description": "Icons - Find and copy",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "theme_color": "#1d1e22",
+    "background_color": "#1d1e22"
+}

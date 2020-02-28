@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <meta charset="utf-8">
+        <title>Icons</title>
+        <meta name="theme-color" content="#1d1e22">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="icons.css">
+        <link rel="shortcut icon" type="image/png" sizes="192x192" href="icon.png">
+        <link rel="manifest" href="manifest.webmanifest">
+    </head>
+    <body>
+        <input type="text" autocomplete="off" autofocus />
+        <div>You can use the property "<em>font: var(--icons);</em>" to use the icon font in you project.</div>
+        <script type="text/javascript">
+            const regex = /icon-([^:]+).+\n.*content: '([^']+)/gm;
+            const input = document.querySelector('input');
+            const script = document.querySelector('script');
+            const section = document.querySelector('section');
+            fetch('icons.css').then(e => e.text()).then(e => {
+                let m;
+                while ((m = regex.exec(e)) !== null) {
+                    if (m.index === regex.lastIndex) {
+                        regex.lastIndex++;
+                    }
+                    script.insertAdjacentHTML(
+                        'beforebegin',
+                        `<p data-search="${m[1].toUpperCase()}"><i class="icon-${m[1]}"></i>.icon-${m[1]}<small>content: '${m[2]}';</small></p>`
+                    );
+                }
+            
+                function search(e) {
+                    const value = e.target.value.toUpperCase();
+                    document.querySelectorAll('p').forEach(e => {
+                        e.hidden = e.dataset.search.indexOf(value) === -1;
+                    });
+                }
+                
+                function copy(e) {
+                    if (e.target.tagName === 'P') {
+                        navigator.clipboard.writeText(`.${e.target.firstChild.className}`);
+                    }
+                }
+                
+                document.body.addEventListener('click', copy);
+                document.body.addEventListener('touch', copy);
+                input.addEventListener('keyup', search);
+            });
+        </script>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font: 1em/1.5em sans-serif;
+            }
+            [hidden] {
+                display: none !important;
+            }
+            
+            body {
+                color: rgb(145, 148, 159);
+                background-color: rgb(29, 30, 34);
+                padding: 1em;
+                display: grid;
+                grid-gap: .5em;
+                grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+                overflow-x: hidden;
+            }
+            input, div {
+                grid-column: 1 / -1;
+                text-align: center;
+            }
+            input {
+                color: rgb(145, 148, 159);
+                width: 100%;
+                font-size: 2em;
+                border: 0;
+                border-bottom: 1px solid rgb(145, 148, 159);
+                padding: 0.5em;
+                background-color: rgb(29, 30, 34);
+                background-image: linear-gradient(0deg, rgba(145, 148, 159, .2) 1em, rgba(145, 148, 159, .2) 100%);
+                position: sticky;
+                top: 0;
+                outline: none;
+            }
+            p {
+                border: 1px dashed rgb(145, 148, 159);
+                border-radius: 3px;
+                padding: 0.5em;
+                height: 100%;
+                flex-flow: column;
+                display: flex;
+                justify-content: center;
+                text-align: center;
+                cursor: pointer;
+            }
+            p [class|=icon]::before {
+                font-size: 2.5em;
+                display: flex;
+                margin-bottom: .2em;
+            }
+            em,
+            p small {
+                font-style: italic;
+            }
+            p small {
+                font-size: .7em;
+            }
+            
+            p:hover {
+                background-color: rgb(145, 148, 159);
+                color: rgb(29, 30, 34);
+            }
+            p * {
+                pointer-events: none;
+            }
+            
+            @media only screen and (max-width: 600px) {
+                body {
+                    grid-template-columns: repeat(auto-fill, minmax(6em, 1fr));
+                }
+            }
+        </style>
+    </body>
+</html>
